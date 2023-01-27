@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { EventPattern, MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
 
 @Controller()
@@ -16,5 +16,12 @@ export class AppController {
     console.log('Data que viene de transaction nuevo: ');
     console.log(data);
     return this.appService.detectFraud(data);
+  }
+
+  @EventPattern('detect_fraud_event')
+  detectFraudEvent(data: any) {
+    console.log('Data que viene de transaction nuevo: ');
+    console.log(data);
+    this.appService.detectFraudEvent();
   }
 }
